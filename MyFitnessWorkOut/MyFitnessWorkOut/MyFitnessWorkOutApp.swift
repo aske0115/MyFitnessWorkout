@@ -1,5 +1,11 @@
+//
+//  MyFitnessWorkOutApp.swift
+//  MyFitnessWorkOut
+//
+//  Created by 1101249 on 9/20/22.
+//
+
 import SwiftUI
-import MyFitnessWorkOutUI
 
 @main
 struct MyFitnessWorkOutApp: App {
