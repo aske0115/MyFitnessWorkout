@@ -17,18 +17,16 @@ struct SplashState: Equatable {
 }
 
 enum SplashAction: Equatable {
-    case loading
+    case loadingCompleted
 }
 
-struct SplashEnvironment {
-    let actionQueue: AnySchedulerOf<DispatchQueue>
-}
+struct SplashEnvironment { }
 
 
 let splashReducer = Reducer<SplashState, SplashAction, SplashEnvironment> {
     state, action, environment in
     switch action {
-    case .loading:
+    case .loadingCompleted:
         state.isActive = true
         state.viewOpacity = 0
         return Effect.none
@@ -93,7 +91,7 @@ struct SplashIntroView: View {
                 .onAppear {
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                        viewStore.send(.loading, animation: Animation.easeIn(duration: 1.0))
+                        viewStore.send(.loadingCompleted, animation: Animation.easeIn(duration: 1.0))
                     }
                 }
             }
@@ -103,6 +101,6 @@ struct SplashIntroView: View {
     
 struct SplashIntroView_Previews: PreviewProvider {
     static var previews: some View {
-        SplashIntroView(store: Store(initialState: SplashState(), reducer: splashReducer, environment: SplashEnvironment(actionQueue: .main)))
+        SplashIntroView(store: Store(initialState: SplashState(), reducer: splashReducer, environment: SplashEnvironment()))
     }
 }

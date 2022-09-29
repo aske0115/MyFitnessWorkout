@@ -12,7 +12,7 @@ import ComposableArchitecture
 struct MyFitnessWorkOutApp: App {
     var body: some Scene {
         WindowGroup {
-            SplashIntroView(store: Store(initialState: SplashState(), reducer: splashReducer, environment: SplashEnvironment(actionQueue: .main)))
+            SplashIntroView(store: Store(initialState: SplashState(), reducer: splashReducer, environment: SplashEnvironment()))
         }
     }
 }
