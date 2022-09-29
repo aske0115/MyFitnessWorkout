@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 @main
 struct MyFitnessWorkOutApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SplashIntroView(store: Store(initialState: SplashState(), reducer: splashReducer, environment: SplashEnvironment(actionQueue: .main)))
         }
     }
 }
