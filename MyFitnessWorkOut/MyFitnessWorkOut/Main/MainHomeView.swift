@@ -28,7 +28,7 @@ struct MainHomeView: View {
                                 Image("141")
                                     .resizable()
                                     .clipShape(Circle())
-                                    .frame(width: 100, height: 100)
+                                    .frame(width: 80, height: 80)
                                     .overlay(Circle().stroke(Color.white,lineWidth:2).shadow(radius: 10))
           
                             }
@@ -38,13 +38,14 @@ struct MainHomeView: View {
                                     Text("에스케")
                                         .font(.title)
                                         .foregroundColor(.white)
-                                    Image(systemName: "record.circle")
+                                    Image(systemName: "camera")
+                                        .foregroundColor(.white)
                                         .frame(width: 30, height: 30, alignment: .center)
                                 }
                                 Text("다음 운동 알람을 설정해주세요")
                                     .font(.footnote)
                                     .foregroundColor(.init(UIColor.lightGray))
-                                    
+                                    .padding(.top, -15)
                                 Spacer()
                             }
                             .padding(.leading, 5)
