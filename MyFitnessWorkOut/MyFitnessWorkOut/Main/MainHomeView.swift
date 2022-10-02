@@ -23,13 +23,32 @@ struct MainHomeView: View {
                                 }
                         }
                         .padding([.top, .bottom], 10)
-                        Button(action: {}) {
-                            Image("141")
-                                .resizable()
-                                .clipShape(Circle())
-                                .frame(width: 100, height: 100)
-                                .overlay(Circle().stroke(Color.white,lineWidth:2).shadow(radius: 10))
-      
+                        HStack {
+                            Button(action: {}) {
+                                Image("141")
+                                    .resizable()
+                                    .clipShape(Circle())
+                                    .frame(width: 100, height: 100)
+                                    .overlay(Circle().stroke(Color.white,lineWidth:2).shadow(radius: 10))
+          
+                            }
+                            VStack (alignment: .leading) {
+                                Spacer()
+                                HStack {
+                                    Text("에스케")
+                                        .font(.title)
+                                        .foregroundColor(.white)
+                                    Image(systemName: "record.circle")
+                                        .frame(width: 30, height: 30, alignment: .center)
+                                }
+                                Text("다음 운동 알람을 설정해주세요")
+                                    .font(.footnote)
+                                    .foregroundColor(.init(UIColor.lightGray))
+                                    
+                                Spacer()
+                            }
+                            .padding(.leading, 5)
+                            
                         }
                         ForEach(0..<50) { row in
                             Button {
@@ -40,9 +59,8 @@ struct MainHomeView: View {
                         }
                     }
                     .padding([.top, .leading], 10)
-                    .frame(width: g.size.width, height: .infinity, alignment: .topLeading)
                 }
-                .frame(width: g.size.width - 20, height: g.size.height, alignment: .topLeading)
+                .frame(width: g.size.width, height: g.size.height, alignment: .topLeading)
                 .padding([.leading], 10)
             }
             .navigationBarTitleDisplayMode(.inline)
@@ -64,22 +82,21 @@ struct MainHomeView: View {
                     }
                 }
             }
-            .tint(.init(UIColor.lightGray))
+            .tint(.init(UIColor.white))
+            .background(.black)
         }
         .onAppear {
             let appearence = UINavigationBarAppearance()
             appearence.configureWithOpaqueBackground()
-            appearence.backgroundColor = UIColor.systemBackground
+            appearence.backgroundColor = .black
             UINavigationBar.appearance().standardAppearance = appearence
             UINavigationBar.appearance().scrollEdgeAppearance = appearence
         }
-       
-//        .
     }
 }
 
 struct MainHomeView_Previews: PreviewProvider {
     static var previews: some View {
-        MainHomeView().preferredColorScheme(.dark)
+        MainHomeView()
     }
 }

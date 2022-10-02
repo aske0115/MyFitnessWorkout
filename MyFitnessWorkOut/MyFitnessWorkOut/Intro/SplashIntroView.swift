@@ -79,23 +79,29 @@ struct SplashIntroView: View {
             if viewStore.isActive {
                 MainHomeView()
             } else {
-                VStack {
-                    LottieView(jsonName: "exercise", loopMode: .loop)
-                        .padding(10)
-                    Text("My FitnessWorkOut")
-                        .fontWeight(.heavy)
-                        .font(.headline)
-                }
-                .frame(width: 220, height: 220, alignment: .center)
-                .opacity(viewStore.viewOpacity)
-                .onAppear {
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                        viewStore.send(.loadingCompleted, animation: Animation.easeIn(duration: 1.0))
+                GeometryReader { geo in
+                    VStack {
+                        LottieView(jsonName: "exercise", loopMode: .loop)
+                            .padding(10)
+                            .frame(width: 220, height: 220, alignment: .center)
+                        Text("My FitnessWorkOut")
+                            .fontWeight(.heavy)
+                            .foregroundColor(.white)
+                            .font(.headline)
                     }
+                    
+                    .opacity(viewStore.viewOpacity)
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                            viewStore.send(.loadingCompleted, animation: Animation.easeIn(duration: 0.4))
+                        }
+                    }
+                    .frame(width: geo.size.width, height: geo.size.height)
+                    .background(.blue)
                 }
             }
         }
+        
     }
 }
     
