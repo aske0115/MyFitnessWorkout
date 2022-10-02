@@ -77,7 +77,7 @@ struct SplashIntroView: View {
         WithViewStore(self.store) { viewStore in
         
             if viewStore.isActive {
-                ContentView()
+                MainHomeView()
             } else {
                 VStack {
                     LottieView(jsonName: "exercise", loopMode: .loop)
