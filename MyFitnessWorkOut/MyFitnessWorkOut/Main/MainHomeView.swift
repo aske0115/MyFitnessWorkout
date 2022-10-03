@@ -111,13 +111,6 @@ struct MainHomeView: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 15))
                             
                         }.padding(.bottom, 5)
-//                        ForEach(0..<50) { row in
-//                            Button {
-//                                print(row)
-//                            } label: {
-//                                Text("row = \(row)")
-//                            }
-//                        }
                     }
                     .padding([.top, .leading, .trailing], 10)
                 }
