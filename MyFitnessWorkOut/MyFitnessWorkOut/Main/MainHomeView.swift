@@ -49,17 +49,47 @@ struct MainHomeView: View {
                                 Spacer()
                             }
                             .padding(.leading, 5)
-                            
                         }
-                        ForEach(0..<50) { row in
-                            Button {
-                                print(row)
-                            } label: {
-                                Text("row = \(row)")
+                        .padding(.bottom, 10)
+                        HStack(alignment:.center) {
+                            Spacer()
+                            Button(action: {}) {
+                                VStack {
+                                    Image(systemName: "forward.fill").renderingMode(.original)
+                                    Text("빠른기록")
+                                    
+                                }.frame(maxWidth: .infinity , minHeight: 90)
+                                .background(.secondary)
                             }
+                            .clipShape(RoundedRectangle(cornerRadius: 15))
+                            Spacer()
+                            Button(action: {}) {
+                                VStack {
+                                    Image(systemName: "star.fill").renderingMode(.original)
+                                    Text("인기루틴")
+                                }.frame(maxWidth: .infinity, minHeight: 90)
+                                .background(.red)
+                            }
+                            .clipShape(RoundedRectangle(cornerRadius: 15))
+                            Spacer()
                         }
+                        .padding(.bottom, 5)
+                        HStack(alignment:.center) {
+                            Text("최근 수행 순")
+                                .foregroundColor(.white)
+                            Spacer()
+                            Image(systemName:"line.3.horizontal.decrease.circle")
+                                .foregroundColor(.red)
+                        }.padding([.leading, .trailing, .bottom], 5)
+//                        ForEach(0..<50) { row in
+//                            Button {
+//                                print(row)
+//                            } label: {
+//                                Text("row = \(row)")
+//                            }
+//                        }
                     }
-                    .padding([.top, .leading], 10)
+                    .padding([.top, .leading, .trailing], 10)
                 }
                 .frame(width: g.size.width, height: g.size.height, alignment: .topLeading)
                 .padding([.leading], 10)
