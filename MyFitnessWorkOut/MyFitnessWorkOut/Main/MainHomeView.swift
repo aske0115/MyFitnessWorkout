@@ -9,6 +9,9 @@ import SwiftUI
 import ComposableArchitecture
 
 struct MainHomeView: View {
+    
+    var works: [FitWorkItem] = [FitWorkItem(title: "월", subtitle: nil), FitWorkItem(title: "화", subtitle: nil), FitWorkItem(title: "목", subtitle: nil), FitWorkItem(title: "금", subtitle: "한적이 없어유~")]
+    
     var body: some View {
         NavigationView {
             GeometryReader { g in
@@ -56,6 +59,7 @@ struct MainHomeView: View {
                             Button(action: {}) {
                                 VStack {
                                     Image(systemName: "forward.fill").renderingMode(.original)
+                                        .padding(.bottom, 5)
                                     Text("빠른기록")
                                     
                                 }.frame(maxWidth: .infinity , minHeight: 90)
@@ -65,7 +69,7 @@ struct MainHomeView: View {
                             Spacer()
                             Button(action: {}) {
                                 VStack {
-                                    Image(systemName: "star.fill").renderingMode(.original)
+                                    Image(systemName: "star.fill").renderingMode(.original).padding(.bottom, 5)
                                     Text("인기루틴")
                                 }.frame(maxWidth: .infinity, minHeight: 90)
                                 .background(.red)
@@ -78,9 +82,35 @@ struct MainHomeView: View {
                             Text("최근 수행 순")
                                 .foregroundColor(.white)
                             Spacer()
-                            Image(systemName:"line.3.horizontal.decrease.circle")
-                                .foregroundColor(.red)
+                            Button(action: {}) {
+                                Image(systemName:"line.3.horizontal.decrease.circle")
+                                    .foregroundColor(.red)
+                            }
+                            
                         }.padding([.leading, .trailing, .bottom], 5)
+                        ForEach(works, id: \.id) { row in
+                            HStack(spacing:15) {
+                                Spacer()
+                                Image(systemName: "bolt.fill")
+                                    .foregroundColor(.red)
+                                VStack(alignment: .leading) {
+                                    Text(row.title)
+                                        .foregroundColor(.white)
+                                    if let subtitle = row.subtitle {
+                                        Text(subtitle)
+                                            .font(.caption)
+                                            .foregroundColor(.gray)
+                                    }
+                                }.frame(maxWidth: .infinity, minHeight: 80,  alignment: .leading)
+
+                                Image(systemName: "ellipsis")
+                                    .foregroundColor(.red)
+                                Spacer()
+                            }.frame(maxWidth: .infinity)
+                                .background(Color.init(uiColor: UIColor.darkGray))
+                                .clipShape(RoundedRectangle(cornerRadius: 15))
+                            
+                        }.padding(.bottom, 5)
 //                        ForEach(0..<50) { row in
 //                            Button {
 //                                print(row)
@@ -130,4 +160,11 @@ struct MainHomeView_Previews: PreviewProvider {
     static var previews: some View {
         MainHomeView()
     }
+}
+
+
+struct FitWorkItem {
+    let id = UUID()
+    let title: String
+    let subtitle: String?
 }
