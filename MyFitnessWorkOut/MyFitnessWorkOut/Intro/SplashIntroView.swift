@@ -75,31 +75,11 @@ struct SplashIntroView: View {
         
             if viewStore.isActive {
                 TabView(selection: $selection) {
-                    MainHomeView()
-                        .tabItem{
-                            Image(systemName: "stairs")
-                            Text("요약")
-                        }.tag(0)
-                    MainHomeView()
-                        .tabItem{
-                            Image(systemName: "calendar")
-                            Text("캘린더")
-                        }.tag(1)
-                    MainHomeView()
-                        .tabItem{
-                            Image(systemName: "dumbbell")
-                            Text("루틴")
-                        }.tag(2)
-                    MainHomeView()
-                        .tabItem{
-                            Image(systemName: "magnifyingglass")
-                            Text("피드")
-                        }.tag(3)
-                    MainHomeView()
-                        .tabItem{
-                            Image(systemName: "gearshape")
-                            Text("설정")
-                        }.tag(4)
+                    TabbarItem("요약", "stairs", tag: 0)
+                    TabbarItem("캘린더", "calendar", tag: 1)
+                    TabbarItem("루틴", "dumbbell", tag: 2)
+                    TabbarItem("피드", "magnifyingglass", tag: 3)
+                    TabbarItem("설정", "gearshape", tag: 4)
                 }
                 .onAppear() {
                     let appearence = UITabBarAppearance()
@@ -134,6 +114,15 @@ struct SplashIntroView: View {
         }
         
     }
+}
+
+@ViewBuilder
+func TabbarItem(_ title: String, _ imageName: String, tag: Int) -> some View {
+    MainHomeView()
+        .tabItem{
+            Image(systemName: imageName)
+            Text(title)
+        }.tag(tag)
 }
     
 struct SplashIntroView_Previews: PreviewProvider {
