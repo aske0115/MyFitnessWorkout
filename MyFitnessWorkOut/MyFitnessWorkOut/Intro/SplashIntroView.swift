@@ -10,29 +10,25 @@ import Lottie
 import UIKit
 import ComposableArchitecture
 
+struct SplashFeature: ReducerProtocol {
+    struct State: Equatable {
+        var isActive = false
+        var viewOpacity = 1.0
+    }
 
-struct SplashState: Equatable {
-    var isActive = false
-    var viewOpacity = 1.0
-}
-
-enum SplashAction: Equatable {
-    case loadingCompleted
-}
-
-struct SplashEnvironment { }
-
-
-let splashReducer = Reducer<SplashState, SplashAction, SplashEnvironment> {
-    state, action, environment in
-    switch action {
-    case .loadingCompleted:
-        state.isActive = true
-        state.viewOpacity = 0
-        return Effect.none
+    enum Action: Equatable {
+        case loadingCompleted
+    }
+    
+    public func reduce(into state: inout State, action: Action) -> Effect<Action, Never> {
+        switch action {
+            case .loadingCompleted:
+            state.isActive = true
+            state.viewOpacity = 0
+            return .none
+        }
     }
 }
-
 
 struct LottieView: UIViewRepresentable {
     var name: String
@@ -71,7 +67,7 @@ struct LottieView: UIViewRepresentable {
 
 
 struct SplashIntroView: View {
-    let store: Store<SplashState, SplashAction>
+    let store: StoreOf<SplashFeature>
 
     var body: some View {
         WithViewStore(self.store) { viewStore in
@@ -107,6 +103,6 @@ struct SplashIntroView: View {
     
 struct SplashIntroView_Previews: PreviewProvider {
     static var previews: some View {
-        SplashIntroView(store: Store(initialState: SplashState(), reducer: splashReducer, environment: SplashEnvironment()))
+        SplashIntroView(store: Store(initialState: SplashFeature.State(), reducer: SplashFeature()))
     }
 }

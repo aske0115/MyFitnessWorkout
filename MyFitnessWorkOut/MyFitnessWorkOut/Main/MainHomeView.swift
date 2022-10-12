@@ -55,11 +55,12 @@ struct MainHomeView: View {
                         }
                         .padding(.bottom, 10)
                         HStack(alignment:.center) {
-                            Spacer()
                             Button(action: {}) {
                                 VStack {
                                     Image(systemName: "forward.fill").renderingMode(.original)
+                                        .foregroundColor(.red)
                                         .padding(.bottom, 5)
+            
                                     Text("빠른기록")
                                     
                                 }.frame(maxWidth: .infinity , minHeight: 90)
@@ -75,7 +76,6 @@ struct MainHomeView: View {
                                 .background(.red)
                             }
                             .clipShape(RoundedRectangle(cornerRadius: 15))
-                            Spacer()
                         }
                         .padding(.bottom, 5)
                         HStack(alignment:.center) {

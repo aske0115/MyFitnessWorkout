@@ -8,32 +8,37 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct State: Equatable {
-    var counter = 0
-}
+struct TestFeature: ReducerProtocol {
+    struct State: Equatable {
+        var counter = 0
+        var activeDecrease = false
+        var activeIncrease = true
+    }
 
-enum Action: Equatable {
-    case increase
-    case decrease
-}
-
-struct Environment {
-    //Future Dependencies...
-}
-
-let reducer = Reducer<State, Action, Environment> { state,  action, environment in
-    switch action {
-    case .increase:
-        state.counter += 1
-        return Effect.none
-    case .decrease:
-        state.counter -= 1
-        return Effect.none
+    enum Action: Equatable {
+        case increase
+        case decrease
+    }
+    
+    func reduce(into state: inout State, action: Action) -> Effect<Action, Never> {
+        switch action {
+        case .increase:
+            state.counter += 1
+            state.activeIncrease = state.counter < 10
+            state.activeDecrease = state.counter != 0
+            return .none
+        case .decrease:
+            state.counter = max(0, state.counter - 1)
+            state.activeIncrease = state.counter < 100
+            state.activeDecrease = state.counter != 0
+            return .none
+        }
     }
 }
 
+
 struct ContentView: View {
-    let store: Store<State, Action> = Store(initialState: State(), reducer: reducer, environment: Environment())
+    let store: StoreOf<TestFeature>
 
     var body: some View {
         WithViewStore(self.store) { viewStore in
@@ -48,6 +53,7 @@ struct ContentView: View {
                         .cornerRadius(10)
                 }
                 .buttonStyle(.plain)
+                .disabled(!viewStore.activeDecrease)
                 Text("\(viewStore.counter)")
                     .padding(5)
                 Button {
@@ -60,6 +66,7 @@ struct ContentView: View {
                         .cornerRadius(10)
                 }
                 .buttonStyle(.plain)
+                .disabled(!viewStore.activeIncrease)
             }
             
             
@@ -69,6 +76,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().preferredColorScheme(.dark)
+        ContentView(store: Store(initialState: TestFeature.State(), reducer: TestFeature())).preferredColorScheme(.dark)
     }
 }
