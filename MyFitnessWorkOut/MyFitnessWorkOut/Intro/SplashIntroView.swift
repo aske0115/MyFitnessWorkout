@@ -67,13 +67,48 @@ struct LottieView: UIViewRepresentable {
 
 
 struct SplashIntroView: View {
+    @State private var selection = 2
     let store: StoreOf<SplashFeature>
 
     var body: some View {
         WithViewStore(self.store) { viewStore in
         
             if viewStore.isActive {
-                MainHomeView()
+                TabView(selection: $selection) {
+                    MainHomeView()
+                        .tabItem{
+                            Image(systemName: "stairs")
+                            Text("요약")
+                        }.tag(0)
+                    MainHomeView()
+                        .tabItem{
+                            Image(systemName: "calendar")
+                            Text("캘린더")
+                        }.tag(1)
+                    MainHomeView()
+                        .tabItem{
+                            Image(systemName: "dumbbell")
+                            Text("루틴")
+                        }.tag(2)
+                    MainHomeView()
+                        .tabItem{
+                            Image(systemName: "magnifyingglass")
+                            Text("피드")
+                        }.tag(3)
+                    MainHomeView()
+                        .tabItem{
+                            Image(systemName: "gearshape")
+                            Text("설정")
+                        }.tag(4)
+                }
+                .onAppear() {
+                    let appearence = UITabBarAppearance()
+                    appearence.configureWithOpaqueBackground()
+                    appearence.backgroundColor = .black
+                    UITabBar.appearance().standardAppearance = appearence
+                }
+                .accentColor(.red)
+                
             } else {
                 GeometryReader { geo in
                     VStack {

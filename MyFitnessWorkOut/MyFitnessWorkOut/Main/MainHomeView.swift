@@ -89,33 +89,12 @@ struct MainHomeView: View {
                             
                         }.padding([.leading, .trailing, .bottom], 5)
                         ForEach(works, id: \.id) { row in
-                            HStack(spacing:15) {
-                                Spacer()
-                                Image(systemName: "bolt.fill")
-                                    .foregroundColor(.red)
-                                VStack(alignment: .leading) {
-                                    Text(row.title)
-                                        .foregroundColor(.white)
-                                    if let subtitle = row.subtitle {
-                                        Text(subtitle)
-                                            .font(.caption)
-                                            .foregroundColor(.gray)
-                                    }
-                                }.frame(maxWidth: .infinity, minHeight: 80,  alignment: .leading)
-
-                                Image(systemName: "ellipsis")
-                                    .foregroundColor(.red)
-                                Spacer()
-                            }.frame(maxWidth: .infinity)
-                                .background(Color.init(uiColor: UIColor.darkGray))
-                                .clipShape(RoundedRectangle(cornerRadius: 15))
-                            
+                            WorkListCell(of: row)
                         }.padding(.bottom, 5)
                     }
                     .padding([.top, .leading, .trailing], 10)
                 }
                 .frame(width: g.size.width, height: g.size.height, alignment: .topLeading)
-                .padding([.leading], 10)
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -135,6 +114,30 @@ struct MainHomeView: View {
                         Image(systemName: "list.bullet")
                     }
                 }
+//                ToolbarItemGroup(placement: .bottomBar) {
+//                    UIBarButtonItem(title: "하이요", image: Image(systemName: "graph"), action: {
+//
+//                    })
+////                    Button (action: {}) {
+////                        Image(systemName: "list.bullet")
+////                    }
+//                    Spacer()
+//                    Button (action: {}) {
+//                        Image(systemName: "list.bullet")
+//                    }
+//                    Spacer()
+//                    Button (action: {}) {
+//                        Image(systemName: "list.bullet")
+//                    }
+//                    Spacer()
+//                    Button (action: {}) {
+//                        Image(systemName: "list.bullet")
+//                    }
+//                    Spacer()
+//                    Button (action: {}) {
+//                        Image(systemName: "list.bullet")
+//                    }
+//                }
             }
             .tint(.init(UIColor.white))
             .background(.black)
@@ -143,10 +146,40 @@ struct MainHomeView: View {
             let appearence = UINavigationBarAppearance()
             appearence.configureWithOpaqueBackground()
             appearence.backgroundColor = .black
+            
+            let toolbarAppearence = UIToolbarAppearance()
+            toolbarAppearence.configureWithOpaqueBackground()
+            toolbarAppearence.backgroundColor = .black
+            
+            UIToolbar.appearance().standardAppearance = toolbarAppearence
             UINavigationBar.appearance().standardAppearance = appearence
             UINavigationBar.appearance().scrollEdgeAppearance = appearence
         }
     }
+}
+
+@ViewBuilder
+func WorkListCell(of: FitWorkItem) -> some View {
+    HStack(spacing:15) {
+        Spacer()
+        Image(systemName: "bolt.fill")
+            .foregroundColor(.red)
+        VStack(alignment: .leading) {
+            Text(of.title)
+                .foregroundColor(.white)
+            if let subtitle = of.subtitle {
+                Text(subtitle)
+                    .font(.caption)
+                    .foregroundColor(.gray)
+            }
+        }.frame(maxWidth: .infinity, minHeight: 80,  alignment: .leading)
+
+        Image(systemName: "ellipsis")
+            .foregroundColor(.red)
+        Spacer()
+    }.frame(maxWidth: .infinity)
+        .background(Color.init(uiColor: UIColor.darkGray))
+        .clipShape(RoundedRectangle(cornerRadius: 15))
 }
 
 struct MainHomeView_Previews: PreviewProvider {
