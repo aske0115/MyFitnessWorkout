@@ -15,84 +15,89 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             GeometryReader { g in
+                ZStack {
                 ScrollView (.vertical, showsIndicators: false){
-                    VStack(alignment: .leading) {
-                        Button(action: {}) {
-                            Text("에")
-                                .frame(width: 30, height: 30, alignment: .center)
-                                .overlay {
-                                    RoundedRectangle(cornerRadius: 25)
-                                        .stroke(.white, lineWidth: 1)
-                                }
-                        }
-                        .padding([.top, .bottom], 10)
-                        HStack {
+                        VStack(alignment: .leading) {
                             Button(action: {}) {
-                                Image("141")
-                                    .resizable()
-                                    .clipShape(Circle())
-                                    .frame(width: 80, height: 80)
-                                    .overlay(Circle().stroke(Color.white,lineWidth:2).shadow(radius: 10))
-          
+                                Text("에")
+                                    .frame(width: 30, height: 30, alignment: .center)
+                                    .overlay {
+                                        RoundedRectangle(cornerRadius: 25)
+                                            .stroke(.white, lineWidth: 1)
+                                    }
                             }
-                            VStack (alignment: .leading) {
-                                Spacer()
-                                HStack {
-                                    Text("에스케")
-                                        .font(.title)
-                                        .foregroundColor(.white)
-                                    Image(systemName: "camera")
-                                        .foregroundColor(.white)
-                                        .frame(width: 30, height: 30, alignment: .center)
+                            .padding([.top, .bottom], 10)
+                            HStack {
+                                Button(action: {}) {
+                                    Image("141")
+                                        .resizable()
+                                        .clipShape(Circle())
+                                        .frame(width: 80, height: 80)
+                                        .overlay(Circle().stroke(Color.white,lineWidth:2).shadow(radius: 10))
+              
                                 }
-                                Text("다음 운동 알람을 설정해주세요")
-                                    .font(.footnote)
-                                    .foregroundColor(.init(UIColor.lightGray))
-                                    .padding(.top, -15)
-                                Spacer()
+                                VStack (alignment: .leading) {
+                                    Spacer()
+                                    HStack {
+                                        Text("에스케")
+                                            .font(.title)
+                                            .foregroundColor(.white)
+                                        Image(systemName: "camera")
+                                            .foregroundColor(.white)
+                                            .frame(width: 30, height: 30, alignment: .center)
+                                    }
+                                    Text("다음 운동 알람을 설정해주세요")
+                                        .font(.footnote)
+                                        .foregroundColor(.init(UIColor.lightGray))
+                                        .padding(.top, -15)
+                                    Spacer()
+                                }
+                                .padding(.leading, 5)
                             }
-                            .padding(.leading, 5)
-                        }
-                        .padding(.bottom, 10)
-                        HStack(alignment:.center) {
-                            Button(action: {}) {
-                                VStack {
-                                    Image(systemName: "forward.fill").renderingMode(.original)
+                            .padding(.bottom, 10)
+                            HStack(alignment:.center) {
+                                Button(action: {}) {
+                                    VStack {
+                                        Image(systemName: "forward.fill").renderingMode(.original)
+                                            .foregroundColor(.red)
+                                            .padding(.bottom, 5)
+                
+                                        Text("빠른기록")
+                                        
+                                    }.frame(maxWidth: .infinity , minHeight: 90)
+                                    .background(.secondary)
+                                }
+                                .clipShape(RoundedRectangle(cornerRadius: 15))
+                                Spacer()
+                                Button(action: {}) {
+                                    VStack {
+                                        Image(systemName: "star.fill").renderingMode(.original).padding(.bottom, 5)
+                                        Text("인기루틴")
+                                    }.frame(maxWidth: .infinity, minHeight: 90)
+                                    .background(.red)
+                                }
+                                .clipShape(RoundedRectangle(cornerRadius: 15))
+                            }
+                            .padding(.bottom, 5)
+                            HStack(alignment:.center) {
+                                Text("최근 수행 순")
+                                    .foregroundColor(.white)
+                                Spacer()
+                                Button(action: {}) {
+                                    Image(systemName:"line.3.horizontal.decrease.circle")
                                         .foregroundColor(.red)
-                                        .padding(.bottom, 5)
-            
-                                    Text("빠른기록")
-                                    
-                                }.frame(maxWidth: .infinity , minHeight: 90)
-                                .background(.secondary)
-                            }
-                            .clipShape(RoundedRectangle(cornerRadius: 15))
-                            Spacer()
-                            Button(action: {}) {
-                                VStack {
-                                    Image(systemName: "star.fill").renderingMode(.original).padding(.bottom, 5)
-                                    Text("인기루틴")
-                                }.frame(maxWidth: .infinity, minHeight: 90)
-                                .background(.red)
-                            }
-                            .clipShape(RoundedRectangle(cornerRadius: 15))
+                                }
+                                
+                            }.padding([.leading, .trailing, .bottom], 5)
+                            ForEach(works, id: \.id) { row in
+                                WorkListCell(of: row)
+                            }.padding(.bottom, 5)
                         }
-                        .padding(.bottom, 5)
-                        HStack(alignment:.center) {
-                            Text("최근 수행 순")
-                                .foregroundColor(.white)
-                            Spacer()
-                            Button(action: {}) {
-                                Image(systemName:"line.3.horizontal.decrease.circle")
-                                    .foregroundColor(.red)
-                            }
-                            
-                        }.padding([.leading, .trailing, .bottom], 5)
-                        ForEach(works, id: \.id) { row in
-                            WorkListCell(of: row)
-                        }.padding(.bottom, 5)
+                        .padding([.top, .leading, .trailing], 10)
+                        
                     }
-                    .padding([.top, .leading, .trailing], 10)
+                    FloatingView()
+                        .padding(.top, g.size.height - 60)
                 }
                 .frame(width: g.size.width, height: g.size.height, alignment: .topLeading)
             }
@@ -117,6 +122,7 @@ struct HomeView: View {
             }
             .tint(.init(UIColor.white))
             .background(.black)
+            
         }
         .onAppear {
             let appearence = UINavigationBarAppearance()
@@ -154,7 +160,7 @@ func WorkListCell(of: FitWorkItem) -> some View {
             .foregroundColor(.red)
         Spacer()
     }.frame(maxWidth: .infinity)
-        .background(Color.init(uiColor: UIColor.darkGray))
+        .background(Color("workListColor"))
         .clipShape(RoundedRectangle(cornerRadius: 15))
 }
 
@@ -169,4 +175,50 @@ struct FitWorkItem {
     let id = UUID()
     let title: String
     let subtitle: String?
+}
+
+
+struct FloatingView: View {
+    var body: some View {
+        GeometryReader { g in
+            ZStack {
+                HStack {
+                    Spacer()
+                    Button(action: {}) {
+                        HStack {
+                            Image(systemName: "bolt.fill")
+                                .foregroundColor(.white)
+                            Text("자유운동")
+                                .foregroundColor(.white)
+                        }.frame(maxWidth: .infinity , minHeight: 50)
+                    }
+                    .background(.red)
+                    .clipShape(RoundedRectangle(cornerRadius: 25))
+                    Spacer().frame(width: 20)
+                    Button(action: {}) {
+                        HStack {
+                            Image(systemName: "plus")
+                                .foregroundColor(.red)
+                            Text("루틴추가")
+                                .foregroundColor(.red)
+                        }.frame(maxWidth: .infinity , minHeight: 50)
+                    }
+                    .background(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 25))
+                    Spacer()
+                }
+                .padding([.leading, .trailing], 15)
+                Button(action: {}, label: {
+                    Image(systemName: "flame")
+                        .foregroundColor(.gray)
+                })
+                
+                .frame(width: 50, height: 50)
+                .background(Color(uiColor: .darkGray))
+                .clipShape(Circle())
+                .overlay(Circle().stroke(Color.clear,lineWidth:2).shadow(radius: 10))
+                .padding(.top, -30)
+            }
+        }
+    }
 }

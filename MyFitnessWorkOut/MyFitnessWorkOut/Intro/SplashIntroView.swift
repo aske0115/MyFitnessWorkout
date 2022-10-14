@@ -72,7 +72,6 @@ struct SplashIntroView: View {
 
     var body: some View {
         WithViewStore(self.store) { viewStore in
-        
             if viewStore.isActive {
                 MainTabView(store: Store(initialState: MainTabFeature.State(), reducer: MainTabFeature()))
             } else {
