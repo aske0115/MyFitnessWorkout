@@ -92,9 +92,9 @@ struct HomeView: View {
                             ForEach(works, id: \.id) { row in
                                 WorkListCell(of: row)
                             }.padding(.bottom, 5)
+                            Spacer().frame(height: 60)
                         }
                         .padding([.top, .leading, .trailing], 10)
-                        
                     }
                     FloatingView()
                         .padding(.top, g.size.height - 60)
