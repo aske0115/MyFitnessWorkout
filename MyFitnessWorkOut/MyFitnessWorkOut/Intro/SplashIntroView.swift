@@ -67,28 +67,14 @@ struct LottieView: UIViewRepresentable {
 
 
 struct SplashIntroView: View {
-    @State private var selection = 2
+    
     let store: StoreOf<SplashFeature>
 
     var body: some View {
         WithViewStore(self.store) { viewStore in
         
             if viewStore.isActive {
-                TabView(selection: $selection) {
-                    TabbarItem("요약", "stairs", tag: 0)
-                    TabbarItem("캘린더", "calendar", tag: 1)
-                    TabbarItem("루틴", "dumbbell", tag: 2)
-                    TabbarItem("피드", "magnifyingglass", tag: 3)
-                    TabbarItem("설정", "gearshape", tag: 4)
-                }
-                .onAppear() {
-                    let appearence = UITabBarAppearance()
-                    appearence.configureWithOpaqueBackground()
-                    appearence.backgroundColor = .black
-                    UITabBar.appearance().standardAppearance = appearence
-                }
-                .accentColor(.red)
-                
+                MainTabView(store: Store(initialState: MainTabFeature.State(), reducer: MainTabFeature()))
             } else {
                 GeometryReader { geo in
                     VStack {
@@ -104,7 +90,7 @@ struct SplashIntroView: View {
                     .opacity(viewStore.viewOpacity)
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                            viewStore.send(.loadingCompleted, animation: Animation.easeIn(duration: 0.4))
+                            viewStore.send(.loadingCompleted, animation: Animation.easeIn(duration: 0.7))
                         }
                     }
                     .frame(width: geo.size.width, height: geo.size.height)
@@ -116,15 +102,6 @@ struct SplashIntroView: View {
     }
 }
 
-@ViewBuilder
-func TabbarItem(_ title: String, _ imageName: String, tag: Int) -> some View {
-    MainHomeView()
-        .tabItem{
-            Image(systemName: imageName)
-            Text(title)
-        }.tag(tag)
-}
-    
 struct SplashIntroView_Previews: PreviewProvider {
     static var previews: some View {
         SplashIntroView(store: Store(initialState: SplashFeature.State(), reducer: SplashFeature()))

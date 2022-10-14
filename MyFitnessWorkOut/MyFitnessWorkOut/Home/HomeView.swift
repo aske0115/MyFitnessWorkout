@@ -1,5 +1,5 @@
 //
-//  MainHomeView.swift
+//  HomeView.swift
 //  MyFitnessWorkOut
 //
 //  Created by 1101249 on 10/2/22.
@@ -8,7 +8,7 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct MainHomeView: View {
+struct HomeView: View {
     
     var works: [FitWorkItem] = [FitWorkItem(title: "월", subtitle: nil), FitWorkItem(title: "화", subtitle: nil), FitWorkItem(title: "목", subtitle: nil), FitWorkItem(title: "금", subtitle: "한적이 없어유~")]
     
@@ -184,7 +184,7 @@ func WorkListCell(of: FitWorkItem) -> some View {
 
 struct MainHomeView_Previews: PreviewProvider {
     static var previews: some View {
-        MainHomeView()
+        HomeView()
     }
 }
 
