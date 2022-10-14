@@ -94,7 +94,7 @@ struct SplashIntroView: View {
                         }
                     }
                     .frame(width: geo.size.width, height: geo.size.height)
-                    .background(.blue)
+                    .background(Color("introColor"))
                 }
             }
         }

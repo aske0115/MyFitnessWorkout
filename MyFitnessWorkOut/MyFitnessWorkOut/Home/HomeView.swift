@@ -114,30 +114,6 @@ struct HomeView: View {
                         Image(systemName: "list.bullet")
                     }
                 }
-//                ToolbarItemGroup(placement: .bottomBar) {
-//                    UIBarButtonItem(title: "하이요", image: Image(systemName: "graph"), action: {
-//
-//                    })
-////                    Button (action: {}) {
-////                        Image(systemName: "list.bullet")
-////                    }
-//                    Spacer()
-//                    Button (action: {}) {
-//                        Image(systemName: "list.bullet")
-//                    }
-//                    Spacer()
-//                    Button (action: {}) {
-//                        Image(systemName: "list.bullet")
-//                    }
-//                    Spacer()
-//                    Button (action: {}) {
-//                        Image(systemName: "list.bullet")
-//                    }
-//                    Spacer()
-//                    Button (action: {}) {
-//                        Image(systemName: "list.bullet")
-//                    }
-//                }
             }
             .tint(.init(UIColor.white))
             .background(.black)
