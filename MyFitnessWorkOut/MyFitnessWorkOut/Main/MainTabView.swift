@@ -52,11 +52,19 @@ struct MainTabView: View {
 
 @ViewBuilder
 func TabbarItem(_ title: String, _ imageName: String, tag: Int) -> some View {
-    HomeView()
-        .tabItem{
-            Image(systemName: imageName)
-            Text(title)
-        }.tag(tag)
+    if title == "설정" {
+        SettingView(store: Store(initialState: SettingFeature.State(), reducer: SettingFeature()))
+            .tabItem{
+                Image(systemName: imageName)
+                Text(title)
+            }.tag(tag)
+    } else {
+        HomeView()
+            .tabItem{
+                Image(systemName: imageName)
+                Text(title)
+            }.tag(tag)
+    }
 }
 
 

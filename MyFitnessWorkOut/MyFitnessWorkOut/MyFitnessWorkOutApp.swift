@@ -10,6 +10,11 @@ import ComposableArchitecture
 
 @main
 struct MyFitnessWorkOutApp: App {
+    
+    init() {
+        UITableView.appearance().backgroundColor = .clear
+    }
+    
     var body: some Scene {
         WindowGroup {
             SplashIntroView(store: Store(initialState: SplashFeature.State(), reducer: SplashFeature()))
