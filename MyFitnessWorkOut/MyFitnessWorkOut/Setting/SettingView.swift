@@ -169,6 +169,7 @@ struct SettingView: View {
 func settingListCell(_ title: String, icon: Image, hasChevron: Bool) -> some View {
     HStack {
         icon
+            .frame(width:20, height:20)
             .foregroundColor(.red)
         Spacer().frame(width:15)
         Text(title)
